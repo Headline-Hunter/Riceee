@@ -20,6 +20,8 @@ export default clerkMiddleware(async (auth, req) => {
   return NextResponse.next();
 });
 
+export const runtime = 'nodejs';
+
 // Keep your existing matcher config for consistency
 export const config = {
   matcher: [
