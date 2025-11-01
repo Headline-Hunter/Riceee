@@ -1,65 +1,194 @@
-import Image from "next/image";
+import React from "react";
+import {
+  Book,
+  Sparkles,
+  Lock,
+  Calendar,
+  ChevronRight,
+  BarChart2,
+  FileText,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import Link from "next/link";
+import { getDailyPrompt } from "@/actions/public";
 
-export default function Home() {
+const features = [
+  {
+    icon: Book,
+    title: "Express Yourself Freely",
+    description:
+      "Write your heart out with a beautiful editor that makes every word feel special.",
+  },
+  {
+    icon: Sparkles,
+    title: "Daily Inspiration",
+    description:
+      "Start each day with inspiring prompts and beautiful imagery to spark your creativity and reflection.",
+  },
+  {
+    icon: Lock,
+    title: "Your Safe Space",
+    description:
+      "Your thoughts deserve privacy. Everything you write stays secure and completely private.",
+  },
+];
+
+export default async function LandingPage() {
+  const advice = await getDailyPrompt();
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.js file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="relative container mx-auto px-4 pt-16 pb-16 overflow-x-hidden">
+      {/* Hero Section */}
+      <div className="max-w-5xl mx-auto text-center space-y-8">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl gradient-title mb-6 break-words px-2">
+          For Riceee, With Love 💗
+          <br /> 
+          Your Story, Your Space.
+        </h1>
+        <p className="text-base md:text-lg lg:text-xl text-orange-800 mb-8 px-4 max-w-3xl mx-auto">
+          A special place crafted just for you to capture your thoughts, 
+          track your moods, and reflect on your beautiful journey.
+        </p>
+        <div className="relative">
+          <div className="absolute inset-0 bg-gradient-to-t from-orange-50 via-transparent to-transparent pointer-events-none z-10" />
+          <div className="bg-white rounded-2xl  p-4 max-full mx-auto">
+            <div className="border-b border-orange-100 pb-4 mb-4 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Calendar className="h-5 w-5 text-orange-600" />
+                <span className="text-orange-900 font-medium">
+                  Today&rsquo;s Entry
+                </span>
+              </div>
+              <div className="flex gap-2">
+                <div className="h-3 w-3 rounded-full bg-orange-200" />
+                <div className="h-3 w-3 rounded-full bg-orange-300" />
+                <div className="h-3 w-3 rounded-full bg-orange-400" />
+              </div>
+            </div>
+            <div className="space-y-4 p-4">
+              <h3 className="text-xl font-semibold text-orange-900">
+                {advice ? advice : "My Thoughts Today"}
+              </h3>
+              <Skeleton className="h-4 bg-orange-100 rounded w-3/4" />
+              <Skeleton className="h-4 bg-orange-100 rounded w-full" />
+              <Skeleton className="h-4 bg-orange-100 rounded w-2/3" />
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="flex justify-center gap-4">
+          <Link href="/dashboard">
+            <Button
+              variant="journal"
+              className="px-8 py-6 rounded-full flex items-center gap-2"
+            >
+              Start Writing <ChevronRight className="h-5 w-5" />
+            </Button>
+          </Link>
+          <Link href="#features">
+            <Button
+              variant="outline"
+              className="px-8 py-6 rounded-full border-orange-600 text-orange-600 hover:bg-orange-100"
+            >
+              Learn More
+            </Button>
+          </Link>
         </div>
-      </main>
+      </div>
+
+      {/* Feature Cards */}
+      <section
+        id="features"
+        className="mt-24 grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+      >
+        {features.map((feature, index) => (
+          <Card key={index} className="shadow-lg">
+            <CardContent className="p-6">
+              <div className="h-12 w-12 bg-orange-100 rounded-full flex items-center justify-center mb-4">
+                <feature.icon className="h-6 w-6 text-orange-600" />
+              </div>
+              <h3 className="font-semibold text-xl text-orange-900 mb-2">
+                {feature.title}
+              </h3>
+              <p className="text-orange-700">{feature.description}</p>
+            </CardContent>
+          </Card>
+        ))}
+      </section>
+
+      <div className="space-y-24 mt-24">
+        {/* Feature 1 */}
+        <div className="grid md:grid-cols-2 gap-12 ">
+          <div className="space-y-6">
+            <div className="h-12 w-12 bg-orange-100 rounded-full flex items-center justify-center">
+              <FileText className="h-6 w-6 text-orange-600" />
+            </div>
+            <h3 className="text-2xl font-bold text-orange-900">
+              Write Your Heart Out
+            </h3>
+            <p className="text-lg text-orange-700">
+              Express every thought, feeling, and dream with a beautiful editor made just for you:
+            </p>
+            <ul className="space-y-3">
+              <li className="flex items-center gap-2">
+                <div className="h-2 w-2 rounded-full bg-orange-400" />
+                <span>Format your words beautifully</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <div className="h-2 w-2 rounded-full bg-orange-400" />
+                <span>Add links to memories</span>
+              </li>
+            </ul>
+          </div>
+          <div className="space-y-4 bg-white rounded-2xl shadow-xl p-6 border border-orange-100">
+            {/* Editor Preview */}
+            <div className="flex gap-2 mb-6">
+              <div className="h-8 w-8 rounded bg-orange-100"></div>
+              <div className="h-8 w-8 rounded bg-orange-100"></div>
+              <div className="h-8 w-8 rounded bg-orange-100"></div>
+            </div>
+            <div className="h-4 bg-orange-50 rounded w-3/4"></div>
+            <div className="h-4 bg-orange-50 rounded w-full"></div>
+            <div className="h-4 bg-orange-50 rounded w-2/3"></div>
+            <div className="h-4 bg-orange-50 rounded w-1/3"></div>
+          </div>
+        </div>
+
+        {/* Feature 2 */}
+        <div className="grid md:grid-cols-2 gap-12 md:flex-row-reverse">
+          <div className="space-y-6 md:order-2">
+            <div className="h-12 w-12 bg-orange-100 rounded-full flex items-center justify-center">
+              <BarChart2 className="h-6 w-6 text-orange-600" />
+            </div>
+            <h3 className="text-2xl font-bold text-orange-900">
+              Track Your Journey
+            </h3>
+            <p className="text-lg text-orange-700">
+              See your emotional journey unfold with beautiful mood analytics:
+            </p>
+            <ul className="space-y-3">
+              <li className="flex items-center gap-2">
+                <div className="h-2 w-2 rounded-full bg-orange-400" />
+                <span>Visualize your mood patterns</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <div className="h-2 w-2 rounded-full bg-orange-400" />
+                <span>Discover your growth over time</span>
+              </li>
+            </ul>
+          </div>
+          <div className="space-y-4 bg-white rounded-2xl shadow-xl p-6 border border-orange-100 md:order-1">
+            {/* Analytics Preview */}
+            <div className="h-40 bg-gradient-to-t from-orange-100 to-orange-50 rounded-lg"></div>
+            <div className="flex justify-between">
+              <div className="h-4 w-16 bg-orange-100 rounded"></div>
+              <div className="h-4 w-16 bg-orange-100 rounded"></div>
+              <div className="h-4 w-16 bg-orange-100 rounded"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
